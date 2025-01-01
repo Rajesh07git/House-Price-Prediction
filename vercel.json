@@ -5,7 +5,8 @@
     }
     },
     "builds": [
-        {"src": "/server/index.py", "use": "@vercel/python"}
+        {"src": "/server/index.py", "use": "@vercel/python"},
+        { "src": "server/api/*.js", "use": "@vercel/node" }
     ],
     "routes": [
         {"src": "/(.*)", "dest": "/server/index.py"}
