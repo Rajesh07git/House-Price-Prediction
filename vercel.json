@@ -1,7 +1,11 @@
 {
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/api/index" }
-    ],
+    
+    "functions": {
+        "api/users/**/*.js": {
+        "maxDuration": 30
+        }
+    },
+      
     "builds": [
         {"src": "/server/index.py", "use": "@vercel/python"}
 
