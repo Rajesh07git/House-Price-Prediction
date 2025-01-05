@@ -5,12 +5,8 @@
     ],
     "routes": [
         { "src": "/(.*)", "dest": "server/index.py" }
-    ],
-    "functions": {
-      "api/**": {
-        "excludeFiles": "{.next,*.cache,node_modules,public,app}/**"
-      }
-    }
+    ]
+    
 }
 
   
