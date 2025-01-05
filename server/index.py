@@ -1,11 +1,11 @@
 from flask import Flask,request,jsonify
-import util
+import uti
 app=Flask(__name__)
 
 @app.route('/get_location_names',methods=['GET'])
 def get_location_names():
     response=jsonify({
-        'locations':util.get_location_names()
+        'locations':uti.get_location_names()
     })
     response.headers.add('Access-Control-Allow-Origin','*')
     return response
@@ -19,12 +19,12 @@ def predict_home_price():
     sqft = float(request.form['sqft'])
     floor = int(request.form['floor'])
     response = jsonify({
-        'estimated_price': util.get_estimated_price(location,bhk,bath,sqft,floor)
+        'estimated_price': uti.get_estimated_price(location,bhk,bath,sqft,floor)
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 if __name__=='__main__':
     print("Starting Python Flask Server For Home Price Prediction")
-    util.load_saved_artifacts()
+    uti.load_saved_artifacts()
     app.run()
