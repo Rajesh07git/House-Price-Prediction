@@ -1,6 +1,12 @@
 import util
 from flask import Flask,request,jsonify
 app=Flask(__name__)
+import os
+import sys
+
+print("Current Working Directory:", os.getcwd())
+print("Python Path:", sys.path)
+print("Directory Contents:", os.listdir(os.getcwd()))
 
 
 @app.route('/get_location_names',methods=['GET'])
