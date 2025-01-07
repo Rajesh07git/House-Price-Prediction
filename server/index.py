@@ -1,14 +1,13 @@
 import util
 from flask import Flask,request,jsonify
 app=Flask(__name__)
-from fastapi import FastAPI
 
+# from fastapi import FastAPI
+# app = FastAPI()
 
-app = FastAPI()
-
-@app.get("/read_root")
-def read_root():
-    return {"message": "Hello from util.py!"}
+# @app.get("/read_root")
+# def read_root():
+#     return {"message": "Hello from util.py!"}
 
 
 @app.route('/get_location_names',methods=['GET'])

@@ -5,9 +5,10 @@ import numpy as np
 __locations=None
 __data_columns=None
 __model=None
-# util.py
-def handler(req, res):
-    return res.status(200).send("Hello from util.py!")
+
+# # util.py
+# def handler(req, res):
+#     return res.status(200).send("Hello from util.py!")
 
 def get_estimated_price(location,bhk,bath,sqft,floor):
     try:
@@ -41,15 +42,16 @@ def load_saved_artifacts():
     with open('./artifacts/home_price_model.pickle','rb') as f:
         __model=pickle.load(f)
     print('loading saved artifacts...done')
- # server/util.py
-from http.server import BaseHTTPRequestHandler
 
-class handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.send_header("Content-type", "text/plain")
-        self.end_headers()
-        self.wfile.write(b"Hello, world!")
+#  # server/util.py
+# from http.server import BaseHTTPRequestHandler
+
+# class handler(BaseHTTPRequestHandler):
+#     def do_GET(self):
+#         self.send_response(200)
+#         self.send_header("Content-type", "text/plain")
+#         self.end_headers()
+#         self.wfile.write(b"Hello, world!")
    
 if __name__=='__main__':
     load_saved_artifacts()
