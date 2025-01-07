@@ -5,6 +5,9 @@ import numpy as np
 __locations=None
 __data_columns=None
 __model=None
+# util.py
+def handler(req, res):
+    return res.status(200).send("Hello from util.py!")
 
 def get_estimated_price(location,bhk,bath,sqft,floor):
     try:

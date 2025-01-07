@@ -1,12 +1,14 @@
 import util
 from flask import Flask,request,jsonify
 app=Flask(__name__)
-import os
-import sys
+from fastapi import FastAPI
 
-print("Current Working Directory:", os.getcwd())
-print("Python Path:", sys.path)
-print("Directory Contents:", os.listdir(os.getcwd()))
+
+app = FastAPI()
+
+@app.get("/read_root")
+def read_root():
+    return {"message": "Hello from util.py!"}
 
 
 @app.route('/get_location_names',methods=['GET'])
