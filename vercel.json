@@ -4,7 +4,7 @@
         { "src": "server/index.py", "use": "@vercel/python" }
     ],
     "routes": [
-        { "src": "http://127.0.0.1:5000/predict_home_price", "dest": "server/index.py" },
+        { "src": "http://127.0.0.1:5000", "dest": "server/index.py" },
         { "src": "/(.*)", "dest": "client/index.html" }
     ]       
 }
