@@ -14,7 +14,7 @@ def get_location_names():
     return response
 
 
-@app.route('/', methods=['GET','POST'])
+@app.route('/predict_home_price', methods=['GET','POST'])
 def predict_home_price():
     location = request.form['location']
     bhk = int(request.form['bhk'])
