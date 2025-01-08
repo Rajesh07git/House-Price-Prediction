@@ -41,13 +41,14 @@ function onClickedEstimatePrice() {
 
   $.post(
     url,
+    JSON.stringify(
     {
       sqft: parseFloat(sqft.value),
       bhk: bhk,
       bath: bathrooms,
       floor: floor,
       location: location.value,
-    },
+    }),
     function (data, status) {
       console.log(data.estimated_price);
       estPrice.innerHTML =
