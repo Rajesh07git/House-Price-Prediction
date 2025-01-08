@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         { "src": "server/index.py", "use": "@vercel/python" },
-        { "src": "client/(.*)", "use": "@vercel/static" }
+        { "src": "client/**", "use": "@vercel/static" }
     ],
     "routes": [
         { "src": "/api/(.*)", "dest": "server/index.py" },
