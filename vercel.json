@@ -6,7 +6,8 @@
     "routes": [
         { "src": "/api/(.*)", "dest": "server/index.py" },
         { "src": "/(.*)", "dest": "client/index.html" }
-    ]       
+    ] 
+          
 }
 
   
