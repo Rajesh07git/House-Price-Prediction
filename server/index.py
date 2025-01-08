@@ -1,4 +1,6 @@
-import util
+import json
+import pickle
+import numpy as np
 from flask import Flask,request,jsonify
 app=Flask(__name__)
 
@@ -13,7 +15,7 @@ app=Flask(__name__)
 @app.route('/get_location_names',methods=['GET'])
 def get_location_names():
     response=jsonify({
-        'locations':util.get_location_names()
+        'locations':get_location_names()
     })
     response.headers.add('Access-Control-Allow-Origin','*')
     return response
@@ -27,12 +29,55 @@ def predict_home_price():
     sqft = float(request.form['sqft'])
     floor = int(request.form['floor'])
     response = jsonify({
-        'estimated_price': util.get_estimated_price(location,bhk,bath,sqft,floor)
+        'estimated_price': get_estimated_price(location,bhk,bath,sqft,floor)
     })
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
+
+
+__locations=None
+__data_columns=None
+__model=None
+
+# # util.py
+# def handler(req, res):
+#     return res.status(200).send("Hello from util.py!")
+
+def get_estimated_price(location,bhk,bath,sqft,floor):
+    try:
+        loc_index = __data_columns.index(location.lower())
+    except:
+        loc_index = -1
+
+    x = np.zeros(len(__data_columns))
+    x[0] = bhk
+    x[1] = bath
+    x[2] = sqft
+    x[3] = floor
+    if loc_index>=0:
+        x[loc_index] = 1
+    
+    return round(__model.predict([x])[0], 2)
+
+def get_location_names():
+    return __locations
+
+def load_saved_artifacts():
+    print('loading saved artifacts...start')
+    global __data_columns
+    global __locations
+    
+    with open('./artifacts/columns.json','r') as f:
+        __data_columns=json.load(f)['data_columns']
+        __locations=__data_columns[4:]
+        
+    global __model
+    with open('./artifacts/home_price_model.pickle','rb') as f:
+        __model=pickle.load(f)
+    print('loading saved artifacts...done')
+
 if __name__=='__main__':
     print("Starting Python Flask Server For Home Price Prediction")
-    util.load_saved_artifacts()
+    load_saved_artifacts()
     app.run()
