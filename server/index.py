@@ -4,13 +4,6 @@ import numpy as np
 from flask import Flask,request,jsonify
 app=Flask(__name__)
 
-# from fastapi import FastAPI
-# app = FastAPI()
-
-# @app.get("/read_root")
-# def read_root():
-#     return {"message": "Hello from util.py!"}
-
 
 @app.route('/get_location_names',methods=['GET'])
 def get_location_names():
@@ -21,7 +14,7 @@ def get_location_names():
     return response
 
 
-@app.route('/predict_home_price', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def predict_home_price():
     location = request.form['location']
     bhk = int(request.form['bhk'])
@@ -40,9 +33,6 @@ __locations=None
 __data_columns=None
 __model=None
 
-# # util.py
-# def handler(req, res):
-#     return res.status(200).send("Hello from util.py!")
 
 def get_estimated_price(location,bhk,bath,sqft,floor):
     try:
