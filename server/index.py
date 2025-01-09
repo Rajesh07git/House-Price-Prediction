@@ -70,5 +70,4 @@ def load_saved_artifacts():
 if __name__=='__main__':
     print("Starting Python Flask Server For Home Price Prediction")
     load_saved_artifacts()
-    from waitress import serve
-    serve(app, host="0.0.0.0", port=5000)
+    
