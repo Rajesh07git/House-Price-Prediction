@@ -16,11 +16,11 @@ def get_location_names():
 
 @app.route('/predict_home_price', methods=['GET','POST'])
 def predict_home_price():
-    location = request.get_json['location']
-    bhk = int(request.get_json['bhk'])
-    bath = int(request.get_json['bath'])
-    sqft = float(request.get_json['sqft'])
-    floor = int(request.get_json['floor'])
+    location = request.form['location']
+    bhk = int(request.form['bhk'])
+    bath = int(request.form['bath'])
+    sqft = float(request.form['sqft'])
+    floor = int(request.form['floor'])
     response = jsonify({
         'estimated_price': get_estimated_price(location,bhk,bath,sqft,floor)
     })
@@ -70,4 +70,4 @@ def load_saved_artifacts():
 if __name__=='__main__':
     print("Starting Python Flask Server For Home Price Prediction")
     load_saved_artifacts()
-    
+    app.run()
