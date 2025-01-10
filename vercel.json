@@ -5,7 +5,7 @@
         { "src": "client/**", "use": "@vercel/static" }
     ],
     "routes": [
-        { "src": "/http://127.0.0.1:5000/(.*)", "dest": "server/index.py" },
+        { "src": "/https://house-price-prediction-mx4m.onrender.com/(.*)", "dest": "server/index.py" },
         { "src": "/(.*)", "dest": "client/$1" }
     ] 
 
