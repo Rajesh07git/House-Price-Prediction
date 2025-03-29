@@ -37,7 +37,7 @@ function onClickedEstimatePrice() {
   var location = document.getElementById("uiLocations").value;
   var estPrice = document.getElementById("uiEstimatedPrice");
 
-  var url = "https://house-price-prediction-self.vercel.app/api/predict_home_price";
+  var url = "https://house-price-prediction-mx4m.onrender.com/api/predict_home_price";
 
   // Update this with your actual Vercel deployment URL
 
@@ -69,7 +69,7 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
   console.log("document loaded");
-  var url = "https://house-price-prediction-self.vercel.app/api/get_location_names";
+  var url = "https://house-price-prediction-mx4m.onrender.com/api/get_location_names";
  // Update this with your actual Vercel deployment URL
 
   fetch(url)
