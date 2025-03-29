@@ -3,7 +3,7 @@
     "functions": {
         "api/index.py": 
         {
-            "runtime": "@vercel/python@4.3.0"
+            "runtime": "@vercel/python@3.10.11"
         }
     },
     "routes": [
