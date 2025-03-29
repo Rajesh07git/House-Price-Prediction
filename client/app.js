@@ -38,6 +38,7 @@ function onClickedEstimatePrice() {
   var estPrice = document.getElementById("uiEstimatedPrice");
 
   var url = "https://house-price-prediction-self.vercel.app/api/predict_home_price";
+
   // Update this with your actual Vercel deployment URL
 
   fetch(url, {

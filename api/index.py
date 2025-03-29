@@ -14,11 +14,11 @@ def load_saved_artifacts():
     global __locations
     global __model
 
-    with open("server/artifacts/columns.json", "r") as f:
+    with open("api/artifacts/columns.json", "r") as f:
         __data_columns = json.load(f)["data_columns"]
         __locations = __data_columns[4:]
 
-    with open("server/artifacts/home_price_model.pickle", "rb") as f:
+    with open("api/artifacts/home_price_model.pickle", "rb") as f:
         __model = pickle.load(f)
 
 @app.route("/api/get_location_names", methods=["GET"])
