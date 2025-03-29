@@ -3,7 +3,7 @@
     "functions": {
         "api/index.py": 
         {
-            "runtime": "python3.10"
+            "runtime": "python3.10.11"
         }
     },
     "routes": [
