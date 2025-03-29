@@ -1,8 +1,8 @@
 function getBathValue() {
   var uiBathrooms = document.getElementsByName("uiBathrooms");
-  for (var i in uiBathrooms) {
+  for (var i = 0; i < uiBathrooms.length; i++) {
     if (uiBathrooms[i].checked) {
-      return parseInt(i) + 1;
+      return i + 1;
     }
   }
   return -1; // Invalid Value
@@ -10,18 +10,19 @@ function getBathValue() {
 
 function getBHKValue() {
   var uiBHK = document.getElementsByName("uiBHK");
-  for (var i in uiBHK) {
+  for (var i = 0; i < uiBHK.length; i++) {
     if (uiBHK[i].checked) {
-      return parseInt(i) + 1;
+      return i + 1;
     }
   }
   return -1; // Invalid Value
 }
+
 function getFloorValue() {
   var uiFloors = document.getElementsByName("uiFloors");
-  for (var i in uiFloors) {
+  for (var i = 0; i < uiFloors.length; i++) {
     if (uiFloors[i].checked) {
-      return parseInt(i) + 1;
+      return i + 1;
     }
   }
   return -1; // Invalid Value
@@ -29,53 +30,62 @@ function getFloorValue() {
 
 function onClickedEstimatePrice() {
   console.log("Estimate price button clicked");
-  var sqft = document.getElementById("uiSqft");
+  var sqft = document.getElementById("uiSqft").value;
   var bhk = getBHKValue();
   var bathrooms = getBathValue();
   var floor = getFloorValue();
-  var location = document.getElementById("uiLocations");
+  var location = document.getElementById("uiLocations").value;
   var estPrice = document.getElementById("uiEstimatedPrice");
 
-  var url = "http://127.0.0.1:5000/predict_home_price"; //Use this if you are NOT using nginx which is first 7 tutorials
-  // var url = "https://house-price-prediction-mx4m.onrender.com/api/predict_home_price"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
+  var url = "https://house-price-prediction-self.vercel.app/api/predict_home_price";
+  // Update this with your actual Vercel deployment URL
 
-  $.post(
-    url,
-   
-    {
-      sqft: parseFloat(sqft.value),
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sqft: parseFloat(sqft),
       bhk: bhk,
       bath: bathrooms,
       floor: floor,
-      location: location.value,
-    },
-    function (data, status) {
+      location: location,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
       console.log(data.estimated_price);
       estPrice.innerHTML =
         "<h2>" + data.estimated_price.toString() + " Rupees</h2>";
-      console.log(status);
-    }
-  ).fail(function (error) {
-    console.error("Error occurred:", error);
-    estPrice.innerHTML = "<h2>Unable to estimate price. Please try again.</h2>";
-  });
+    })
+    .catch((error) => {
+      console.error("Error occurred:", error);
+      estPrice.innerHTML =
+        "<h2>Unable to estimate price. Please try again.</h2>";
+    });
 }
 
 function onPageLoad() {
   console.log("document loaded");
-  var url = "http://127.0.0.1:5000/get_location_names"; // Use this if you are NOT using nginx which is first 7 tutorials
-  // var url = "https://house-price-prediction-mx4m.onrender.com/api/get_location_names"; // Use this if  you are using nginx. i.e tutorial 8 and onwards
-  $.get(url, function (data, status) {
-    console.log("got response for get_location_names request");
-    if (data) {
-      var locations = data.locations;
-      var uiLocations = document.getElementById("uiLocations");
-      $("#uiLocations").empty();
-      for (var i in locations) {
-        var opt = new Option(locations[i]);
-        $("#uiLocations").append(opt);
+  var url = "https://house-price-prediction-self.vercel.app/api/get_location_names";
+ // Update this with your actual Vercel deployment URL
+
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("got response for get_location_names request");
+      if (data) {
+        var locations = data.locations;
+        var uiLocations = document.getElementById("uiLocations");
+        uiLocations.innerHTML = ""; // Clear existing options
+        locations.forEach((loc) => {
+          var opt = new Option(loc);
+          uiLocations.appendChild(opt);
+        });
       }
-    }
-  });
+    })
+    .catch((error) => console.error("Error fetching locations:", error));
 }
+
 window.onload = onPageLoad;
