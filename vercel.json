@@ -1,13 +1,14 @@
 {
     "version": 2,
-    "functions": {
-        "api/index.py": 
-        {
-            "runtime": "@vercel/python@4.3.0"
-        }
-    },
+    "builds": [
+        { "src": "server/index.py", "use": "@vercel/python" },
+        { "src": "client/**", "use": "@vercel/static" }
+    ],
     "routes": [
-        { "src": "/api/(.*)", "dest": "api/index.py" },
+        { "src": "/http://127.0.0.1:5000/(.*)", "dest": "server/index.py" },
         { "src": "/(.*)", "dest": "client/$1" }
-    ]
+    ] 
+
 }
+
+  
